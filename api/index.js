@@ -25,10 +25,10 @@ module.exports = async (req, res) => {
   const stars = await Promise.all(_.map(years, year => fetch(year)));
   const doc = {};
   for (let i = 0; i < years.length; i++) {
-    doc[years[i]] = `${stars[i]}*`;
+    doc[years[i]] = stars[i];
   }
   const allStars = stars.reduce((acc, star) => acc + star);
-  doc.allStars = `${allStars}*`
+  doc.allStars = allStars
   console.log(allStars);
   res.json(doc);
 };
