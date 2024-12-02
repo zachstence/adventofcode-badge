@@ -6,6 +6,9 @@ const _ = require('lodash');
 const session = process.env.SESSION;
 
 async function fetch(year) {
+  if (process.env.DEBUG) {
+    console.log('fetch', { year, session })
+  }
   try {
     const res = await superagent.get(`https://adventofcode.com/${year}`)
           .set('user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36')
@@ -29,6 +32,10 @@ module.exports = async (req, res) => {
   }
   const allStars = stars.reduce((acc, star) => acc + star);
   doc.allStars = allStars
-  console.log(allStars);
+  
+  if (process.env.DEBUG) {
+    console.debug(doc)
+  }
+
   res.json(doc);
 };
